@@ -1,0 +1,9 @@
+File 'grep.c'
+Lines executed:62.79% of 3679
+Creating 'grep.c.gcov'
+
+File '/usr/include/string.h'
+Lines executed:0.00% of 1
+Creating 'string.h.gcov'
+
+Lines executed:62.77% of 3680

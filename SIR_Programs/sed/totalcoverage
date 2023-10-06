@@ -1,0 +1,25 @@
+File 'sed.c'
+Lines executed:61.24% of 1824
+Creating 'sed.c.gcov'
+
+File 'regexec.c'
+Lines executed:34.12% of 1606
+Creating 'regexec.c.gcov'
+
+File 'regcomp.c'
+Lines executed:44.33% of 1331
+Creating 'regcomp.c.gcov'
+
+File 'regex_internal.c'
+Lines executed:70.52% of 502
+Creating 'regex_internal.c.gcov'
+
+File 'regex_internal.h'
+Lines executed:50.00% of 8
+Creating 'regex_internal.h.gcov'
+
+File 'getline.c'
+Lines executed:0.00% of 40
+Creating 'getline.c.gcov'
+
+Lines executed:49.20% of 5311
