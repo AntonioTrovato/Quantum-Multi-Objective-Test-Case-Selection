@@ -1,0 +1,7 @@
+#per ogni riga
+for j in range(M):
+        #per ogni test
+        for i in range(N):
+            #per ogni test successivo all'i-esimo
+            for k in range(i+1, N):
+                bqm.set_quadratic(i, k, 2 * beta * L[j][i] * L[j][k])
