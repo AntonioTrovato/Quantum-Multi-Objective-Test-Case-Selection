@@ -19,13 +19,13 @@ function total_fitness = computeFitness(population, costs, coverage, revealed_fa
 
         % Calculate coverage for the current solution
         selected_lines = [];
-        for j = 1:n
+        for j = 1:length(coverage)
             if solution(j) == 1
                 selected_lines = [selected_lines, coverage{j}];
             end
         end
         unique_covered_lines = unique(selected_lines);
-        total_coverage = -length(unique_covered_lines) / 4357;  % Assuming total number of lines is 4357
+        total_coverage = -length(unique_covered_lines) / 2034;  % Assuming total number of lines is 4357
 
         % Calculate fault coverage for the current solution
         total_failures = -sum(solution .* revealed_failures) / sum(revealed_failures ~= 0);
@@ -50,7 +50,7 @@ function f = fitnessFunction(x, costs, coverage, revealed_failures)
         end
     end
     unique_covered_lines = unique(selected_lines);
-    total_coverage = -length(unique_covered_lines) / 4357;
+    total_coverage = -length(unique_covered_lines) / 2034;
     
     % Objective 3: Maximize the number of revealed failures (converted to minimization)
     nonzero_failures = revealed_failures(revealed_failures ~= 0);  % Filter out the zeros
@@ -60,18 +60,18 @@ function f = fitnessFunction(x, costs, coverage, revealed_failures)
 end
 
 % Parameters
-N = 567;  % Number of test cases (example value)
-M = 400;  % Population size (example value)
+N = 214;  % Number of test cases (example value)
+M = 300;  % Population size (example value)
 
 % Example data for test cases
 
 %get costs
-data = fileread('flex_costs.txt');
+data = fileread('gzip_costs.txt');
 costs = str2double(strsplit(data, ','));
 
 
 % Read the content of the text file
-fileID = fopen('flex_coverage.txt', 'r');
+fileID = fopen('gzip_coverage.txt', 'r');
 rawData = textscan(fileID, '%s', 'Delimiter', '\n');
 fclose(fileID);
 % Initialize the coverage cell array
@@ -86,7 +86,7 @@ end
 
 
 %get revealed_failures
-data = fileread('flex_revealed_failures.txt');
+data = fileread('gzip_revealed_failures.txt');
 revealed_failures = str2double(strsplit(data, ','));
 
 % Define the fitness function handle
@@ -100,7 +100,7 @@ execution_times = zeros(1, 10);
 
 % Step 1: Find a valid Hadamard matrix size
 H_size = 4;
-while H_size < N + 1
+while H_size < M + 1
     H_size = H_size * 2;
 end
 
@@ -131,7 +131,7 @@ for rep = 1:10
 
     routine_execution_times = [];
     
-    for i = 1:334
+    for i = 1:167
         fprintf('Repetition iteration %d\n', rep);
         fprintf('Optimization iteration %d\n', i);
         fprintf('Subsequent diffs %d\n', subsequent_diff);
@@ -294,7 +294,7 @@ for rep = 1:10
         % Store the sum of fitness values in the last_fvalues array
         last_mean_fvalue = mean_fvalue;
     
-        if i == 334
+        if i == 167
             % Initialize front array
             pareto_front = cell(size(x, 1), 1);
         
@@ -454,12 +454,12 @@ fprintf('DIV-GA mean execution time (ms): %f\n', mean_execution_time);
 % Save Pareto fronts and mean execution time to JSON file
 json_data = struct();
 for i = 1:10
-    field_name = sprintf('flex_pareto_front_%d', i-1);
+    field_name = sprintf('gzip_pareto_front_%d', i-1);
     json_data.(field_name) = pareto_fronts{i};
 end
 json_data.vNSGA_II_mean_execution_time_ms = mean_execution_time;
 
-json_file = 'flex_pareto_fronts_divga.json';
+json_file = 'gzip_pareto_fronts_divga.json';
 json_str = jsonencode(json_data);
 fid = fopen(json_file, 'w');
 fprintf(fid, '%s', json_str);
