@@ -78,13 +78,13 @@ SelectQA and BootQA are different and its description follows.
 
 ### bootqa.py
 
-This file is a modified version of the original bootqa file from the GitHub 
+This file, contained in the "./BootQA" folder, is a modified version of the original bootqa file from the GitHub 
 repository hosting BootQA. It can be run without manual configurations to execute 
 the annealing and store the results for statistical analysis.
 
 ### stats.py
 
-This file executes the empirical comparisons between SelectQA and BootQA, and it is not 
+This file, contained in the "./BootQA" folder, executes the empirical comparisons between SelectQA and BootQA, and it is not 
 necessary to configure it. The final results are stored.
 
 ### DIVGA.m
