@@ -449,7 +449,7 @@ end
 mean_execution_time = mean(execution_times);
 
 % Display mean execution time
-fprintf('DIV-GA mean execution time (ms): %f\n', mean_execution_time);
+fprintf('DIVGA mean execution time (ms): %f\n', mean_execution_time);
 
 % Save Pareto fronts and mean execution time to JSON file
 json_data = struct();
@@ -457,7 +457,7 @@ for i = 1:10
     field_name = sprintf('gzip_pareto_front_%d', i-1);
     json_data.(field_name) = pareto_fronts{i};
 end
-json_data.vNSGA_II_mean_execution_time_ms = mean_execution_time;
+json_data.DIVGA_II_mean_execution_time_ms = mean_execution_time;
 
 json_file = 'gzip_pareto_fronts_divga.json';
 json_str = jsonencode(json_data);
