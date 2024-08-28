@@ -1,4 +1,4 @@
-# SelectQA - Quantum Regression Test Case Optimization
+# SelectQA - Quantum Regression Test Case Selection
 This repository contains all the necessary resources to reproduce the results of the 
 SelectQA method.
 
@@ -49,8 +49,8 @@ comparisons with other methods.
 This file contains three main algorithms:
 
 - Additional Greedy;
-- The TCS version of SelectQA;
-- The TCM version of SelectQA.
+- The three-objectives version of SelectQA;
+- The two-objectives version of SelectQA.
 
 This file implements all the pipelines necessary to run the algorithms, from the dataset 
 information gathering, to algorithm execution and finally to empirical comparisons.
