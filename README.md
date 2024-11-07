@@ -85,7 +85,7 @@ the annealing and store the results for statistical analysis.
 ### stats.py
 
 This file, contained in the "./BootQA" folder, executes the empirical comparisons between SelectQA and BootQA, and it is not 
-necessary to configure it. The final results are stored.
+necessary to configure it. The final results are stored in the same folder.
 
 ### DIVGA.m
 
