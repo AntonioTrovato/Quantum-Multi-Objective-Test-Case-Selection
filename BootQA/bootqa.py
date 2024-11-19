@@ -70,11 +70,11 @@ def run_qpu(sample_list_total, data, sample_time, sample_size, it):
 
     for i in range(len(sample_list_total)):
         obj = create_bqm(sample_list_total[i], sample_size,sample_time, data)
-        sampler = EmbeddingComposite(DWaveSampler(token=""))
+        sampler = EmbeddingComposite(DWaveSampler(token="DEV-aed1bf4d378bc904cc1f3f2b30b10d9e16eaeb9f"))
         sampleset = sampler.sample(obj, num_reads=100, return_embedding=True)
         Formatter(sorted_by=None).fprint(sampleset)
         qpu_access = sampleset.info['timing']['qpu_access_time']
-        qpu_access_times.append(qpu_access)
+        qpu_access_times.append(qpu_access/1000)
 
         first_sample = sampleset.first.sample
         sample_first_list.append(first_sample)
