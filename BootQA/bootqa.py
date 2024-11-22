@@ -135,6 +135,7 @@ if __name__ == '__main__':
     for data_name in data_names:
         sampling_times = []
         qpu_access_times = []
+        execution_times = []
         sol_suite_costs = []
         sol_suite_rates = []
         print(data_name)
@@ -150,19 +151,23 @@ if __name__ == '__main__':
             sol_suite_cost, sol_suite_rate = make_summary(merge_sample, data)
             sampling_times.append(sampling_time)
             qpu_access_times.append(avg_qpu_access_time)
+            execution_times.append(sampling_time + avg_qpu_access_time)
             sol_suite_costs.append(sol_suite_cost)
             sol_suite_rates.append(sol_suite_rate)
 
         avg_sampling_time = statistics.mean(sampling_times)
         avg_qpu_access_time = statistics.mean(qpu_access_times)
-        avg_execution_time = avg_sampling_time + avg_qpu_access_time
+        avg_execution_time = statistics.mean(execution_times)
+        print("EXECUTION TIMES: " + str(execution_times))
+        print("STD DEV EXECTUTION TIMES: " + str(statistics.stdev(execution_times)))
         qpu_lower_bound, qpu_upper_bound = bootstrap_confidence_interval(qpu_access_times, 100, 0.95)
 
         var_names = ["final_test_suite_costs", "final_failure_rates", "avg_sampling_time(ms)",
                      "avg_qpu_access_time(ms)", "qpu_lower_bound(ms)", "qpu_upper_bound(ms)",
-                     "avg_ex_time(ms)"]
+                     "avg_ex_time(ms)", "std_dev_ex_time", "exectution_times(ms)"]
         values = [sol_suite_costs, sol_suite_rates, avg_sampling_time,
-                  avg_qpu_access_time, qpu_lower_bound, qpu_upper_bound, avg_execution_time]
+                  avg_qpu_access_time, qpu_lower_bound, qpu_upper_bound, avg_execution_time,
+                  statistics.stdev(execution_times),execution_times]
 
         with open("./" + data_name + "/sum_bootqa.csv", "w", newline="") as file:
             writer = csv.writer(file)

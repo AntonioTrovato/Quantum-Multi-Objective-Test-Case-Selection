@@ -25,7 +25,8 @@ function total_fitness = computeFitness(population, costs, coverage, revealed_fa
             end
         end
         unique_covered_lines = unique(selected_lines);
-        total_coverage = -length(unique_covered_lines) / 2034;  % Assuming total number of lines is 4357
+        %gzip=2034//sed=5311//grep=3680//flex=4357
+        total_coverage = -length(unique_covered_lines) / 4357;
 
         % Calculate fault coverage for the current solution
         total_failures = -sum(solution .* revealed_failures) / sum(revealed_failures ~= 0);
@@ -60,18 +61,18 @@ function f = fitnessFunction(x, costs, coverage, revealed_failures)
 end
 
 % Parameters
-N = 214;  % Number of test cases (example value)
-M = 300;  % Population size (example value)
+N = 567;  % Number of test cases (example value)
+M = 400;  % Population size (example value)
 
 % Example data for test cases
 
 %get costs
-data = fileread('gzip_costs.txt');
+data = fileread('flex_costs.txt');
 costs = str2double(strsplit(data, ','));
 
 
 % Read the content of the text file
-fileID = fopen('gzip_coverage.txt', 'r');
+fileID = fopen('flex_coverage.txt', 'r');
 rawData = textscan(fileID, '%s', 'Delimiter', '\n');
 fclose(fileID);
 % Initialize the coverage cell array
@@ -86,7 +87,7 @@ end
 
 
 %get revealed_failures
-data = fileread('gzip_revealed_failures.txt');
+data = fileread('flex_revealed_failures.txt');
 revealed_failures = str2double(strsplit(data, ','));
 
 % Define the fitness function handle
@@ -100,7 +101,7 @@ execution_times = zeros(1, 10);
 
 % Step 1: Find a valid Hadamard matrix size
 H_size = 4;
-while H_size < M + 1
+while H_size < N + 1
     H_size = H_size * 2;
 end
 
@@ -131,7 +132,7 @@ for rep = 1:10
 
     routine_execution_times = [];
     
-    for i = 1:167
+    for i = 1:334
         fprintf('Repetition iteration %d\n', rep);
         fprintf('Optimization iteration %d\n', i);
         fprintf('Subsequent diffs %d\n', subsequent_diff);
@@ -445,6 +446,16 @@ for rep = 1:10
     execution_times(rep) = sum(routine_execution_times);
 end
 
+% Show each element
+disp('Execution times:');
+for i = 1:length(execution_times)
+    fprintf('Element %d: %.2f\n', i, execution_times(i));
+end
+
+% Calculate and show the standard deviation
+exec_times_std_dev = std(execution_times);
+fprintf('Standard Deviation: %.2f\n', exec_times_std_dev);
+
 % Calculate mean execution time
 mean_execution_time = mean(execution_times);
 
@@ -457,7 +468,8 @@ for i = 1:10
     field_name = sprintf('gzip_pareto_front_%d', i-1);
     json_data.(field_name) = pareto_fronts{i};
 end
-json_data.DIVGA_II_mean_execution_time_ms = mean_execution_time;
+json_data.DIVGA_mean_execution_time_ms = mean_execution_time;
+json_data.std_dev = exec_times_std_dev;
 
 json_file = 'gzip_pareto_fronts_divga.json';
 json_str = jsonencode(json_data);

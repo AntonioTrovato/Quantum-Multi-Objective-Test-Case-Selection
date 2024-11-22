@@ -100,7 +100,8 @@ will have to reconfigure the target and the algorithm parameters each time you
 change the target program. Also, be sure to reconfigure both the M, N and gamultiobj 
 routine's parameters (the correct values are described in the paper by Panichella et 
 al. named "Improving Multi-Objective Test Case Selection by Injecting Diversity in Genetic Algorithms").
-In line 53, the denominator of total_coverage = -length(unique_covered_lines) / 2034; 
+In line 104, H_size is < than max{N,M} + 1. In line 53, the denominator of 
+total_coverage = -length(unique_covered_lines) / 2034; 
 must be changed with the total number of code lines of the target program.
 Be careful to change also the target files for results reporting.
 
